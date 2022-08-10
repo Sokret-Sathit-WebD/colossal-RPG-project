@@ -97,6 +97,33 @@ while (hero.isAlive()) {
     }
     }
 }
+//Battle Function
+
+function battle (npc, me, shout, melee) {
+    let actions = ['[A]attack', '[R]run', '[x]coward way out']
+    // .forEach() = method calls a function for each element in an array
+    actions.forEach(a => console.log(a))
+    let input = readlineSync.keyIn('Select an action [A] [R] [Q] '); // should limit to a,r,q
+    if (input = 'a') {
+        console.log('a')
+        attackDamage (shout, melee)
+    }
+    if (input === 'r') {
+        let runAway = Math.floor(Math.random() * 2);
+        if (runAway === 0) {
+            npc.ran = false
+            readlineSync.question(name + "Huh...not today. ENTER to continue ")
+        }
+        if (runAway === 1) {
+            readlineSync.question( name + "You will face me! to the DEATH! Nord. ENTER to continue")
+        }
+    }
+    if (input === 'q') {
+        quit (me, npc)
+    }
+}
+
+
 
 // let enemyHealth = 10; /////Temporary fix
 // let prize = "You have saved Skyrim from danger yet again Dovahhkin";
