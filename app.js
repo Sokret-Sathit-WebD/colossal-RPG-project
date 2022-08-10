@@ -97,8 +97,8 @@ while (hero.isAlive()) {
     }
     }
 }
-//Battle Function
 
+//Battle Function
 function battle (npc, me, shout, melee) {
     let actions = ['[A]attack', '[R]run', '[x]coward way out']
     // .forEach() = method calls a function for each element in an array
@@ -122,7 +122,53 @@ function battle (npc, me, shout, melee) {
         quit (me, npc)
     }
 }
+function attackDamage (shout, melee, gettingAttack) {
+    let attackNum = Math.floor(Math.random() * (shout - melee) + 1 ) + low;
+    gettingAttack.health = gettingAttack.health - attackNum
+}
+function endGame(me) {
+    readlineSync.question(" You were defeated dragonborn. Rest up and head back out there. ENTER to continue. ")
+    me.alive = false
+} 
+function defeated (npc, me) {
+    if (npc.health <= 0) {
+        npc.alive = false
+        // "+=" is equal to	x += y	x = x + y; The += assignment operator can also be used to add (concatenate) strings.
+        me.health += npc.originalHp
+        readlineSync.question(name +' you killed ' + npc.name + 'way to go dragonborn. ENTER to continue ' )
+        me.inventory.push(npc.loots)
+    }
+    if (me.health <= 0) { 
+        npc.alive = false
+        endGame
+    }
+}
+function quit (me, npc) {
+    me.alive = false
+    npc.alive = false
+    readlineSync.question( naem + " You have quit the game. ENTER to continue")
+}
+function encounter (npc, hero, npcHighDam, npcLowDam, nextNum) {
+    if (npc.alive === false) {
+        // "++" add ome to (increment)
+        nextNum++
+    }
+    if (npc.alive === true) {
+        npc.ran = true
+        readlineSync.question( name + " Well hello there " + npc.name + " ENTER to continue")
+        while (npc.alive && npc.ran) {
+            console.log( name + " You have " + hero.health +"health")
+            console.log('NPC health is ' + npc.health)
 
+            fight (npc, player, 30, 10)
+            if (npc.ran) {
+                attackDamage (npcHighDam, npcLowDam, player)
+            }
+            defeated (npc, hero)
+        }
+    }
+    return nextNum
+}
 
 
 // let enemyHealth = 10; /////Temporary fix
