@@ -1,30 +1,49 @@
+// ### **Project Requirements:**
+
+// 1. Console must greet player with a fun message
+// 2. Console must ask for the player's name and store it
+// 3. Walking:
+// - The console will ask the user to enter a "w" to walk
+// - Every time the player walks, a random algorithm will be run that determines if a wild enemy has appeared (A 1/3 or 1/4 chance of being attacked)
+// - Use a while loop to control this flow.
+// 1. If a wild enemy appears:
+// - The enemy is random (can be chosen out of a minimum of 3 different enemy names)
+// - The user can decide to attack or run
+// - If attacking, a random amount of damage will be dealt between a min and max
+// - If running, there will be a 50% chance of escaping
+// - After the player attacks or runs the enemy attacks back for a random damage amount
+// - The player and enemy will attack each other in a loop until one of them passes out or dies.
+// - If the player kills the enemy you can give the Player some HP and a special item that is stored in the inventory. After this, the player will continue walking.
+// - If the enemy kills the player the console prints a cool death message and the game ends
+// 1. Inventory
+// - When the player kills enemies, they are awarded with items
+// - If the user enters 'Print' or 'p' in the console, the console will print the players name, HP, and each item in their inventory
 
 const readlineSync = require('readline-sync');
 
 let player = {
     name: userName,
-    userHealth: 20,
+    hp: 20,
     inventory: [],
 }
 
-let enemy = [
-{
-    helganGuard: "Helgan Guard",
-    enemyHealth: 30,
-    treasure: "Steel Helmet",
-},
-{
-    imperialSoldier: "Imperial Soldier",
-    enemyHealth: 35,
-    treasure: "Steel Shield",
-},
-{
-    stormcloakSoldier: "Stormcloak Soldier",
-    enemyHealth: 25,
-    treasure: "Light Boots",
+class enemySkyrim {
+    constructor(name, health, loots) {
+        this.health = health
+        this.originalHp = health
+        this.alive = true
+        this.run = true
+        this.name = name
+        this.loots = loots
+    }
 }
-]
-let enemyHealth = 10; /////Temporary fix
+
+let helgenGuard = new enemySkyrim ('Helgen Guard', 30, 'Steel helmet')
+let empireGuard = new enemySkyrim ('Empire guard', 40, 'steel shield')
+let stormCloak = new enemySkyrim ('Stormcloak soldier', 45, 'bow')
+
+// let enemyHealth = 10; /////Temporary fix
+// let prize = "You have saved Skyrim from danger yet again Dovahhkin";
 
 
 
@@ -34,14 +53,19 @@ function rollEncounter(min, max) {
     return Math.floor(Math.random() * (max-min) + min);
 }
 
-function enemyEncounter(enemy) {
-    diceRoll(1, 4)
-    if (diceRoll === 1) {
-        helganGuard = enemy
-    } else if (diceRoll === 2) {
-        imperialSoldier = enemy
-    } else if (diceRoll === 3) {
-        stormcloakSoldier = enemy
+function rollDie() {
+    let roll = Math.floor(Math.random() * (max-min) + min);
+    console.log('Rolled: ${roll}');
+}
+
+function enemyEncounter() {
+    rollDie((1, 3))
+    if (rollDie == 1) {
+        helgenGuard = enemy
+    } else if (rollDie == 2) {
+        empireGuard = enemy
+    } else if (rollDie == 3) {
+        stormCloak = enemy
     }
 }
 
@@ -65,43 +89,43 @@ function attackEnemy () {
     console.log(attackPower)
 }
 
+//////////// FUNCTIONS \\\\\\\\\\
 
-
-const name = readlineSync.question("Ahh you're finally awake! What is your name?");
+const name = readlineSync.question("Ahh you're finally awake! What is your name?  ");
 
 readlineSync.question('Welcome to Helgan keep ' + name + ', This is where you will start your journey to find out who you are.\n Press Enter to begin. ');
     var userName = name
 const options =['Walk', 'Exit', 'Print'];
 
 
-
-
+let max = 40
+let min = 10
 
 function game() {
-    const attackPower = Math.floor(Math.random() * 3);
-    const enemyCriticalHit = Math.floor(Math.random() * 5);
-    let userHealth = 20;
-
+    const attackPower = Math.floor(Math.random() * (max-min) + min);
+    const enemyCriticalHit = Math.floor(Math.random() * (max-min) + min);
+    // let player.hp = 20;
+    let enemyHealth = 10;
     const index = readlineSync.keyInSelect(options, 'What will you do Dovahhkin?');
 
-    if (options[index] == 'Exit') {
+    if (options[index] === 'Exit') {
         return userHealth = 0;
-    } else if (options[index] == 'Print') {
+    } else if (options[index] === 'Print') {
         console.log(player);
     } else if (options[index] === 'Walk') {
         let key = Math.random();
-        if (key <= .3) {
+        if (key <= .33) {
             console.log('Walking around and taking in the scenery of Skyrim.');
-        } else if (key >= .3) {
-            console.log('***Combat music kicks in***' + enemyEncounter + ' stoped you and draw his sword!\n What would you like to do?');
+        } else if (key >= .33) {
+            console.log('***   Combat music kicks in   ***' + enemyEncounter + ' stoped you and draw his sword!\n What would you like to do?');
 
-            while(userHealth > 0 ) {
+            while(userHealth > 0 && enemyHealth > 0) {
 
 
-                const user = readlineSync.question('Enter "r" to run, or enter "a" to attack! ');
+                const user = readlineSync.question('Enter "r" to run, or enter "b" to battle! ');
 
-                let inGame = true;
-                let inBattle = false;
+                // let inGame = true;//////////
+                // let inBattle = false;/////////
 
                
 
@@ -114,7 +138,7 @@ function game() {
                             console.log('You ran away successfully. You live to fight another day!');
                             break;
                         }
-                    case 'a':
+                    case 'b':
                         enemyHealth -= attackPower;
                         console.log('You attacked  ' + enemy + ' with ' + attackPower + ' Hit Points.');
 
@@ -122,10 +146,10 @@ function game() {
                         console.log('Enemy attacked you with ' + enemyCriticalHit + ' Hit Points.');
                                            
                         if (enemyHealth <= 0) {
-                            console.log('Nice work! You defeated ' + enemy + '.\n' + enemy + ' left behind: ' ); // + pickUp
+                            console.log('Nice work! You defeated ' + enemy + '.\n' + enemy + ' left behind: ' + pickUp ); // + pickUp
                             let loot = Math.random();
                             if (loot <= .7) {
-                                prize.push(pickUp);
+                                prize.push(pickUp); //(pickUp)
                             }
                         } else if (userHealth <= 0) {
                             console.log(enemy + ' has defeated you. You died ☠️! You will respawn at the nearest keep.');
@@ -136,10 +160,10 @@ function game() {
     }
 }
 
-while(player.userHealth > 0) {
+while(player.hp > 0) {
     userRestore = function() {
         userActive = true;
-        userHealth = 40;
+        userHealth = 20;
     };
     userRestore();
     game();
