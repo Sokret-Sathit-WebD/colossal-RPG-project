@@ -10,17 +10,17 @@ let enemies = [
 {
     name: "Helgan Guard",
     enemyHealth: 30,
-    treasure: "Steel Helmet",
+    loot: "Steel Helmet",
 },
 {
     name: "Imperial Soldier",
     enemyHealth: 35,
-    treasure: "Steel Shield",
+    loot: "Steel Shield",
 },
 {
     name: "Stormcloak Soldier",
     enemyHealth: 25,
-    treasure: "Light Boots",
+    loot: "Light Boots",
 }
 ]
 let enemyHealth = 10; /////Temporary fix
@@ -79,9 +79,13 @@ function getRandomInt(max) {
 const random = getRandomInt(100)
 player.health -= random
 
+function pickUp() {
+    let loots = enemies.loot
+}
+
 
 function walk() {
-    const attackPower = Math.floor(Math.random() * 3);
+    const attackPower = Math.floor(Math.random() * 3 +1);
     const enemyCriticalHit = Math.floor(Math.random() * 5);
     let userHealth = 20;
 
@@ -97,15 +101,13 @@ function walk() {
             console.log('Walking around and taking in the scenery of Skyrim.');
         } else if (key >= .3) {
             enemyEncounter(name)
-            console.log('***Combat music kicks in***' + enemy.name + ' stoped you and draw his sword!\n What would you like to do?');
+            console.log('***Combat music kicks in***' + enemy + ' stoped you and draw his sword!\n What would you like to do?');
 
             while(userHealth > 0 ) {
 
 
-                const user = readlineSync.question('Enter "r" to run, or enter "a" to attack! ');
+                const user = readlineSync.question('Enter "a" to attack, or enter "r" to run! ');
 
-                let inGame = true;
-                let inBattle = false;
 
 
 
@@ -125,11 +127,13 @@ function walk() {
                         userHealth -= enemyCriticalHit;
                         console.log('Enemy attacked you with ' + enemyCriticalHit + ' Hit Points.');
 
+                        
                         if (enemyHealth <= 0) {
-                            console.log('Nice work! You defeated ' + enemy + '.\n' + enemy + ' left behind: ' ); // + pickUp
-                            let loot = Math.random();
-                            if (loot <= .7) {
-                                prize.push(pickUp);
+                            loot = "Boots"
+                            let prize = loot;
+                            console.log('Nice work! You defeated ' + enemy + '.\n' + enemy + ' left behind: ' + loot ); // + pickUp
+                            if (loot === "Boots") {
+                                pickUp(loot);
                             }
                         } else if (userHealth <= 0) {
                             console.log(enemy + ' has defeated you. You died ☠️! You will respawn at the nearest keep.');
@@ -148,6 +152,5 @@ while(player.userHealth > 0) {
     userRestore();
     walk();
 }
-
 
 
