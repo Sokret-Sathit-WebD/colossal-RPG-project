@@ -28,7 +28,6 @@ class Player {
         this.health = health,
         this.inventory = []
     }
-
     isAlive(){
         return this.health > 0
     }
@@ -36,6 +35,7 @@ class Player {
 
 const hero = new Player ('player', 40)
 console.log("Welcome to Skyrim " +name+ " ...I used to be an adventurer just like you \n...untill I took an arrow to the knee ")
+
 class enemySkyrim {
     constructor(name, health, loots) {
         this.health = health
