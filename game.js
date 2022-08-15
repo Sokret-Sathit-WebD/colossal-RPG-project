@@ -1,6 +1,6 @@
 const readlineSync = require('readline-sync');
 const name = readlineSync.question("Ahh you're finally awake! What is your name?");
-// const inventory = readlineSync
+
 class Player {
     constructor(name, playerHealth, inventory) {
         this.playerName = name,
@@ -12,7 +12,6 @@ class Player {
         return this.playerHealth > 0
     }
 }
-let hero = ['hero', 20, "Trouser"]
 class enemies {
     constructor(name, enemyHealth, loots) {
         this.enemyName = name,
@@ -22,26 +21,20 @@ class enemies {
 }
 let helgenGuard = new enemies ("Helgan Guard", 30, 'Steel Helmet')
 let empireGuard = new enemies ("Imperial Soldier", 35, "Steel Shield")
+let stormCloak = new enemies ("Stormcloak Soldier", 25, "Light Boots")
 
-// Create a function that extract an item from the enemy
-let stormCloak = ["Stormcloak Soldier", 25, "Light Boots"]
-stormCloak.pop("Light Boots");
-console.log(stormCloak);
-// The create a function that push that item to the player
-hero.push("Light Boots ");
-console.log(hero);
-
-// while (hero.isAlive()) {
-//     const input = readlineSync.keyIn("[w]walk\n[p]print\n[q]quit", {limit: 'wpq'})
-//         if (input === 'w') walk(hero)
-//         if (input === 'p') {
-//             console.log(hero)
-//             readlineSync.question ('ENTER to go back')
-//         }
-//         if (input === 'q')readlineSync.questionInt(hero, NaN)
-//         walk()
-// }
-// let enemyHealth = 10; /////Temporary fix
+let playerHealth = 20
+while (playerHealth > 0) {
+    const input = readlineSync.keyIn("[w]walk\n[p]print\n[q]quit", {limit: 'wpq'})
+        if (input === 'w') walk()
+        if (input === 'p') {
+            console.log(hero)
+            readlineSync.question ('ENTER to go back')
+        }
+        if (input === 'q')readlineSync.questionInt(hero, NaN)
+        walk()
+}
+let enemyHealth = 10; /////Temporary fix
 
 let enemy = undefined
 
@@ -81,16 +74,19 @@ function checkEnemyHealth () {
     console.log(wildPokemonEncounter.wildPokemonHealth)
 }
 
-function attackEnemy () {
+function attackPower () {
     console.log(attackPower)
 }
-function walk(inventory) {
-    const attackPower = Math.floor(Math.random() * 3 +10);
-    const enemyCriticalHit = Math.floor(Math.random() * 5);
-    let playerHealth = 20;
+
+
+function walk() {
+    const attackPower = Math.floor(Math.random() * 3 + 10);
+    const enemyAttack = Math.floor(Math.random() * 5 + 3);
+    let userHealth = 20;
+
     
     const index = readlineSync.keyInSelect(options, 'What will you do Dovahhkin?');
-    
+
     if (options[index] == 'Exit') {
         return userHealth = 0;
     } else if (options[index] == 'Print') {
@@ -108,7 +104,7 @@ function walk(inventory) {
                     case 'r':
                         const run = Math.random();
                         if (run < .5) {
-                            console.log("You can't escape! " + enemies + " attacked you, causing a damage total of: " + enemyCriticalHit + " Hit Points.");
+                            console.log("You can't escape! " + enemies + " attacked you, causing a damage total of: " + enemyAttack + " Hit Points.");
                         } else {
                             console.log('You ran away successfully. You live to fight another day!');
                             break;
@@ -118,8 +114,8 @@ function walk(inventory) {
                             enemyHealth -= attackPower;
                             console.log('You attacked  ' + enemies + ' with ' + attackPower + ' Hit Points.');
                             
-                            playerHealth -= enemyCriticalHit;
-                            console.log('Enemy attacked you with ' + enemyCriticalHit + ' Hit Points.');
+                            playerHealth -= enemyAttack;
+                            console.log('Enemy attacked you with ' + enemyAttack + ' Hit Points.');
                             
                             if (enemyHealth <= 0) {
                                 inventory.push(loot)    
@@ -148,13 +144,13 @@ function walk(inventory) {
             
             
             
-            function getRandomInt(max) {
-                return Math.floor(Math.random() * max);
-            }
+            // function getRandomInt(max) {
+            //     return Math.floor(Math.random() * max);
+            // }
             
-            const random = getRandomInt(100)
-            hero.health -= random
+            // const random = getRandomInt(100)
+            // hero.health -= random
             
-            function pickUp() {
-                    let loots = enemies.loots
-                }
+            // function pickUp() {
+            //         let loots = enemies.loots
+            //     }
