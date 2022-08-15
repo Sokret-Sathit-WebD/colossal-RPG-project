@@ -46,22 +46,27 @@ function walk() {
         console.log(name + ': \n ' + playerHealth + '\nloots: ' + pickUp);
     } else if (options[index] === 'Walk') {
         let key = Math.random();
-        if (key <= .3) {
-            console.log('Walking around and taking in the scenery of Skyrim.');
-        } else if (key >= .3) {
-            console.log('***Combat music kicks in***' + enemies + ' stoped you and draw his sword!\n What would you like to do?');
+        if (key < .305) {
+            console.log('Walking around and taking in the scenery of Skyrim.')
+        }
+        else if (key < .705) {
+            console.log('Trinkets, Odds and ends...that sort of things')
+        }
+        else {
+            console.log('*** Combat music kicks in *** ' + enemy + ' stops you and draw his sword!\n What would you like to do?')
+        
 
             while(enemiesHealth > 0 && playerHealth > 0 ) {
 
-                const player = readlineSync.question('Enter "a" to attack, or enter "r" to run ');
+                const player = readlineSync.question('Enter "r" to run, or enter "a" to attack ::: ');
 
                 switch (player) {
                     case 'r':
                         const run = Math.random();
                         if (run < .5) {
-                            console.log("Face me Noed!! " + enemy + " attacked you, causing a damage total of: " + enemiesAttack + " Hit Points.");
+                            console.log("Face me Nord!! " + enemy + " attacked you, causing a damage total of: " + enemiesAttack + " Hit Points.");
                         } else {
-                            console.log('You ran away successfully. You live to fight another day!');
+                            console.log('You ran away successfully. You live to fight another day Dragonborn!');
                             break;
                         }
                     case 'a':
@@ -72,7 +77,7 @@ function walk() {
                         console.log('Enemy attacked you with ' + enemiesAttack + ' Hit Points.');
 
                         if (enemiesHealth <= 0) {
-                            console.log('Nice work! You defeated ' + enemy + '.\n' + enemy + ' left behind: ' + pickUp ); // needs to randomize loot
+                            console.log('FOR SKYRIMMMMMMMMMMMMMMMMMMMMMMM! You defeated ' + enemy + '.\n' + enemy + ' left behind: ' + pickUp ); // needs to randomize loot
                             let loot = Math.random();
                             if (loot <= .9) {
                                 prize.push(pickUp);
@@ -89,7 +94,7 @@ function walk() {
 while(playerHealth > 0) {
     userRestore = function() {
         userActive = true;
-        playerHealth = 20;
+        playerHealth = 40;
     };
     userRestore();
     walk();
