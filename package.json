@@ -1,24 +1,6 @@
 {
-  "name": "colossal-rpg-project",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Sokret-Sathit-WebD/colossal-RPG-project.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Sokret-Sathit-WebD/colossal-RPG-project/issues"
-  },
-  "homepage": "https://github.com/Sokret-Sathit-WebD/colossal-RPG-project#readme",
   "dependencies": {
-    "chalk-animation": "^2.0.2",
+    "package.json": "^0.0.0",
     "readline-sync": "^1.4.10"
   }
 }
