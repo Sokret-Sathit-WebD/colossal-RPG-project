@@ -1,7 +1,7 @@
 // ### **Project Requirements:**
 
-// 1. Console must greet player with a fun message
-// 2. Console must ask for the player's name and store it
+// 1. Console must greet player with a fun message ✅
+// 2. Console must ask for the player's name and store it✅
 // 3. Walking:
 // - The console will ask the user to enter a "w" to walk
 // - Every time the player walks, a random algorithm will be run that determines if a wild enemy has appeared (A 1/3 or 1/4 chance of being attacked)
@@ -20,7 +20,7 @@
 // - If the user enters 'Print' or 'p' in the console, the console will print the players name, HP, and each item in their inventory
 
 const readlineSync = require('readline-sync');
-const name = readlineSync.question("Ahh you're finally awake! What is your name?");
+const name = readlineSync.question("Ahh you're finally awake! What is your name? \n Enter your name here >>>>>>  ");
 readlineSync.question('Welcome to Helgan keep ' + name + ', This is where you will start your journey to find out who you are.\n Press Enter to begin. ');
 
 const enemies = ['Helgan Guard', 'Empire Guard', 'Storm Cloak'];
@@ -33,7 +33,7 @@ let pickUp = loots[Math.floor(Math.random() * loots.length)];
  /////////// FUNCTIONS \\\\\\\\\\
 
 function walk() {
-    const attackPower = Math.floor(Math.random() * 3 + 10);
+    const attackPower = Math.floor(Math.random() * 3 + 3);
     const enemy = enemies [Math.floor(Math.random() * enemies.length)];
     let enemiesHealth = 30;
     const enemiesAttack = Math.floor(Math.random() * (5 - 3) + 2);
@@ -53,7 +53,7 @@ function walk() {
             console.log('Trinkets, Odds and ends...that sort of things')
         }
         else {
-            console.log('*** Combat music kicks in *** ' + enemy + ' stops you and draw his sword!\n What would you like to do?')
+            console.log('*** Combat music kicks in *** ' + enemy + ' stops you and draw his sword!\n What would you like to do? :::')
         
 
             while(enemiesHealth > 0 && playerHealth > 0 ) {
@@ -74,7 +74,7 @@ function walk() {
                         console.log('You attacked  ' + enemy + ' with ' + attackPower + ' Hit Points.');
 
                         playerHealth -= enemiesAttack;
-                        console.log('Enemy attacked you with ' + enemiesAttack + ' Hit Points.');
+                        console.log( enemy + ' attacked you with ' + enemiesAttack + ' Hit Points.');
 
                         if (enemiesHealth <= 0) {
                             console.log('FOR SKYRIMMMMMMMMMMMMMMMMMMMMMMM! You defeated ' + enemy + '.\n' + enemy + ' left behind: ' + pickUp ); // needs to randomize loot
