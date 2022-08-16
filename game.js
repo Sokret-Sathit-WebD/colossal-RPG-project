@@ -29,22 +29,22 @@ var prize = [];
 let playerHealth = 20;
 let playerInventory = [];
 const options = ['Walk', 'Print', 'Exit'];
-let pickUp = loots[Math.floor(Math.random() * loots.length)];
 
- /////////// FUNCTIONS \\\\\\\\\\
+/////////// FUNCTIONS \\\\\\\\\\
 
 function walk() {
     const attackPower = Math.floor(Math.random() * 3 + 3);
     const enemy = enemies [Math.floor(Math.random() * enemies.length)];
     let enemiesHealth = 30;
     const enemiesAttack = Math.floor(Math.random() * (5 - 3) + 2);
+    let pickUp = loots[Math.floor(Math.random() * loots.length)];
 
     const index = readlineSync.keyInSelect(options, 'What will you do Dovahhkin?');
 
     if (options[index] == 'Exit') {
         return userHealth = 0;
     } else if (options[index] == 'Print') {
-        console.log(name + ': \n ' + playerHealth + '\nloots: ' + pickUp + playerInventory);
+        console.log(name + ': \n ' + playerHealth + '\nInventory: ' + playerInventory);
     } else if (options[index] === 'Walk') {
         let key = Math.random();
         if (key < .305) {
@@ -81,7 +81,7 @@ function walk() {
                             console.log('FOR SKYRIMMMMMMMMMMMMMMMMMMMMMMM! You defeated ' + enemy + '.\n' + enemy + ' left behind: ' + pickUp ); // needs to randomize loot
                             let loot = Math.random();
                             if (loot <= .9) {
-                                prize.push(pickUp);
+                                playerInventory.push(pickUp);
                             }
                         } else if (playerHealth <= 0) {
                             console.log(enemy + " has defeated you. You died defending Nord's pride ☠️! You will respawn at the nearest keep.");
@@ -95,7 +95,7 @@ function walk() {
 while(playerHealth > 0) {
     userRestore = function() {
         userActive = true;
-        playerHealth = 20;
+        playerHealth = 40;
     };
     userRestore();
     walk();
