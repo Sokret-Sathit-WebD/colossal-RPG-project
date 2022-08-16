@@ -68,7 +68,9 @@ function walk() {
                             console.log("Face me Nord!! " + enemy + " attacked you, causing a damage total of: " + enemiesAttack + " Hit Points.");
                         } else {
                             console.log('You ran away successfully. You live to fight another day Dragonborn!');
+                            walk()
                             break;
+                            // After running away, player need to go back to walking.
                         }
                     case 'a':
                         enemiesHealth -= attackPower;
